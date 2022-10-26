@@ -98,7 +98,6 @@ function App() {
                         <button>
                           <FontAwesomeIcon
                             icon={faChevronLeft}
-                            className="left-and-right"
                             onClick={() => handleDecrease(i)}
                            />
                         </button>
@@ -106,7 +105,6 @@ function App() {
                         <button>
                           <FontAwesomeIcon 
                             icon={faChevronRight}
-                            className="left-and-right"
                             onClick={() => handleIncrease(i)}
                           />
                         </button>
@@ -114,7 +112,7 @@ function App() {
                     </div>
           ))}
 
-          <div className="total">Всего: {totalValue}</div>
+          <div className="total">Всего: {totalValue >= 0 ? totalValue : 0}</div>
         </div>
       </div>
     </div>
