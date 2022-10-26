@@ -7,12 +7,12 @@ import { faCoffee, faChevronRight, faChevronLeft, faCircle, faCheckCircle, faPlu
 function App() {
 
   const [items, setItems] = useState([
-    { itemName: 'item 1', quantiy: 1, isSelected: false },
-    { itemName: 'item 2', quantiy: 1, isSelected: true },
-    { itemName: 'item 3', quantiy: 1, isSelected: false },
+
   ]);
 
   const [inputValue, setInputValue] = useState('');
+  
+  const [totalValue, setTotalValue] = useState(0);
 
   const handleButtonClick = () => {
     const newItem = {
@@ -31,14 +31,28 @@ function App() {
 
     newItems[index].quantiy++;
     setItems(newItems);
-  }
+    calculateTotal();
+  };
 
   const handleDecrease = (index) => {
     const newItems = [...items];
 
     newItems[index].quantiy--;
     setItems(newItems);
-  }
+    calculateTotal();
+  };
+
+  const handleClickCompleted = (index) => {
+    const newItems = [...items];
+
+    newItems[index].isSelected = !newItems[index].isSelected;
+    setItems(newItems);
+  };
+
+  const calculateTotal = () => {
+    const totalCount = items.reduce((acc, el) => acc + el.quantiy, 0);
+    setTotalValue(totalCount);
+  };
 
   return (
     <div className="app-background">
@@ -58,11 +72,13 @@ function App() {
         <div className="item-list">
           {items.map((item, i) => (
                       <div className="item-container">
-                      <div className="item-name">
+                      <div className="item-name" onClick={() => handleClickCompleted(i)}>
                         { item.isSelected ? (
                           <>
-                            <FontAwesomeIcon icon={faCheckCircle} />
-                            <span>{item.itemName}</span>
+                            <FontAwesomeIcon
+                              icon={faCheckCircle} 
+                            />
+                            <span className="completed">{item.itemName}</span>
                           </>
                         ) : (
                           <>
@@ -89,7 +105,7 @@ function App() {
                     </div>
           ))}
 
-          <div className="total">Total: 6</div>
+          <div className="total">Всего: {totalValue}</div>
         </div>
       </div>
     </div>
