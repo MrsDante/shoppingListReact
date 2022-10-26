@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCoffee, faChevronRight, faChevronLeft, faCircle, faCheckCircle, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faChevronRight, faChevronLeft, faCircle, faCheckCircle, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 
 function App() {
@@ -21,9 +21,15 @@ function App() {
       isSelected: false,
     };
 
-    const newItems = [...items, newItem];
+    if (newItem.itemName.length > 0) {
+      const newItems = [...items, newItem];
+      setItems(newItems);
+      setInputValue('');
+    } else alert('Нужно ввести хотя бы один символ :с')
+
+   /* const newItems = [...items, newItem];
     setItems(newItems);
-    setInputValue('');
+    setInputValue('');*/
   };
 
   const handleIncrease = (index) => {
@@ -71,18 +77,19 @@ function App() {
         </div>
         <div className="item-list">
           {items.map((item, i) => (
-                      <div className="item-container">
+                      <div key={i} className="item-container">
                       <div className="item-name" onClick={() => handleClickCompleted(i)}>
                         { item.isSelected ? (
                           <>
                             <FontAwesomeIcon
-                              icon={faCheckCircle} 
+                              icon={faCheckCircle}
+                              className="circle-icon" 
                             />
                             <span className="completed">{item.itemName}</span>
                           </>
                         ) : (
                           <>
-                            <FontAwesomeIcon icon={faCircle} />
+                            <FontAwesomeIcon className="circle-icon"  icon={faCircle} />
                             <span>{item.itemName}</span>
                           </>
                         )}
@@ -91,6 +98,7 @@ function App() {
                         <button>
                           <FontAwesomeIcon
                             icon={faChevronLeft}
+                            className="left-and-right"
                             onClick={() => handleDecrease(i)}
                            />
                         </button>
@@ -98,6 +106,7 @@ function App() {
                         <button>
                           <FontAwesomeIcon 
                             icon={faChevronRight}
+                            className="left-and-right"
                             onClick={() => handleIncrease(i)}
                           />
                         </button>
