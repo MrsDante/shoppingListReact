@@ -1,3 +1,9 @@
+# shoppingListReact
+Приложение по добавлению продуктов в список, реализованное с использованием React, React Hooks. Можно менять колличество продукта, приложение высчитывает общее колличество продуктов.
+
+# GitHub Pages
+[Посмотреть!](https://mrsdante.github.io/shoppingListReact/)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
